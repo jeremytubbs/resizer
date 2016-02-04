@@ -1,0 +1,34 @@
+{
+    "name": "jeremytubbs/resizer",
+    "description": "Resize and create high-resolution images for use with picturefill scrset",
+    "license": "MIT",
+    "authors" : [
+        {
+            "name": "Jeremy Tubbs",
+            "email": "jeremytubbs@gmail.com",
+            "homepage": "http://jeremytubbs.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Jeremytubbs\\Resizer\\": "src/"
+        }
+    },
+    "keywords": [
+        "intervention",
+        "image",
+        "flysystem",
+        "picturefill",
+        "retina",
+        "2x",
+        "thumbnails",
+        "gd",
+        "imagemagick",
+        "imagick",
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "intervention/image": "^2.3",
+        "league/flysystem": "^1.0"
+    }
+}
