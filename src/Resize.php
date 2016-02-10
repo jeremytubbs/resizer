@@ -25,11 +25,11 @@ class Resize
         $this->setImageSizes($imageSizes, $image2x);
     }
 
-    public function makeImages($imagePath, $file = NULL)
+    public function makeImages($imagePath, $filePath = NULL, $rename = NULL)
     {
         $results = null;
         $image = $this->imageManager->make($imagePath);
-        $filename = $file !== NULL ? $file : pathinfo($imagePath)['filename'];
+        $filename = $rename !== NULL ? $rename : pathinfo($imagePath)['filename'];
         foreach ($this->imageSizes as $type => $size) {
             $tempImage = clone $image;
             $height = $size[0];
@@ -40,7 +40,8 @@ class Resize
                 $constraint->upsize();
             });
             $tempImage->encode($this->imageFormat);
-            $tempPath =  $filename .'_' . $type . '.' . $this->imageFormat;
+            $tempFilename = $filename .'_' . $type . '.' . $this->imageFormat;
+            $tempPath = $filePath !== NULL ? $filePath . '/' . $tempFilename : $tempFilename;
             $this->path->put($tempPath, $tempImage);
             $results[$type] = $tempPath;
             unset($tempImage);
