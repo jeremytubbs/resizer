@@ -22,7 +22,7 @@ class ResizeFactory
     }
 
     /**
-     * @return Deepzoom
+     * @return Resizer
      */
     public function getResizer()
     {
@@ -106,7 +106,7 @@ class ResizeFactory
 
     /**
      * @param array $config
-     * @return Deepzoom
+     * @return Resizer
      */
     public static function create(array $config = [])
     {
