@@ -22,6 +22,7 @@ Example implementation -
 
     $resizer->makeImages(
         'images/KISS.jpg',        // Path to source image
+        'new/location',           // Destination Path
         'keep-it-simple-stupid'); // Rename image
 ```
 
