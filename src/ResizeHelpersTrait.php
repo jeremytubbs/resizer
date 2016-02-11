@@ -10,7 +10,7 @@ trait ResizeHelpersTrait {
             foreach ($imageSizes as $type => $size) {
                 $height = $size[0] ? $size[0] * 2 : $size[0];
                 $width = $size[1] ? $size[1] * 2 : $size[1];
-                $imageSizes[$type . '_2x'] = [$height, $width];
+                $imageSizes[$type . '@2x'] = [$height, $width];
             }
         }
         return $this->imageSizes = $imageSizes;
