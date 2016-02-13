@@ -27,7 +27,7 @@ class Resize
         $this->setImageSizes($imageSizes, $image2x);
     }
 
-    public function makeImages($imagePath, $filePath = NULL, $rename = NULL)
+    public function makeImages($imagePath, $filePath = NULL, $rename = NULL, $config = NULL)
     {
         $results = null;
         $image = $this->imageManager->make($imagePath);
@@ -48,6 +48,10 @@ class Resize
             $results[$type] = $tempPath;
             unset($tempImage);
         }
+
+        // used with Laravel to fire event
+        if ( defined('LARAVEL_START') ) \Event::fire('resizer', [$results]);
+
         return [
             'status' => 'ok',
             'data' => $results,
