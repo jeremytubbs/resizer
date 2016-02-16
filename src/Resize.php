@@ -14,17 +14,19 @@ class Resize
     protected $imageFormat;
     protected $imageSizes;
     protected $image2x;
+    protected $pathPrefix;
 
     /**
      * @param FilesystemInterface $path
      * @param ImageManager $imageManager
      */
-    public function __construct(FilesystemInterface $path, ImageManager $imageManager, $imageFormat, $imageSizes, $image2x)
+    public function __construct(FilesystemInterface $path, ImageManager $imageManager, $imageFormat, $imageSizes, $image2x, $pathPrefix)
     {
         $this->setImageManager($imageManager);
         $this->setPath($path);
         $this->imageFormat = $imageFormat;
         $this->setImageSizes($imageSizes, $image2x);
+        $this->pathPrefix = $pathPrefix;
     }
 
     public function makeImages($imagePath, $filePath = NULL, $rename = NULL, $config = NULL)
@@ -44,17 +46,22 @@ class Resize
             $tempImage->encode($this->imageFormat);
             $tempFilename = $filename .'_' . $type . '.' . $this->imageFormat;
             $tempPath = $filePath !== NULL ? $filePath . '/' . $tempFilename : $tempFilename;
-            $this->path->put($tempPath, $tempImage);
-            $results[$type] = $tempPath;
+            $saved_image = $this->path->put($tempPath, $tempImage);
+            $results[$type] = $this->pathPrefix . '/' . $tempPath;
             unset($tempImage);
         }
 
+        $data = [
+            'output' => $results,
+            'source' => $imagePath,
+        ];
+
         // used with Laravel to fire event
-        if ( defined('LARAVEL_START') ) \Event::fire('resizer', [$results]);
+        if ( defined('LARAVEL_START') ) \Event::fire('resizer', [$data]);
 
         return [
             'status' => 'ok',
-            'data' => $results,
+            'data' => $data,
             'message' => 'Everything is okay!'
         ];
     }

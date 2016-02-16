@@ -27,11 +27,12 @@ class ResizeFactory
     public function getResizer()
     {
         $resizer = new Resize(
-            $this->getExportPath(),
+            $this->getFilesystem(),
             $this->getImageManager(),
             $this->getImageFormat(),
             $this->getImageSizes(),
-            $this->getImage2x()
+            $this->getImage2x(),
+            $this->getPathPrefix()
         );
 
         return $resizer;
@@ -40,7 +41,7 @@ class ResizeFactory
     /**
      * @return Filesystem|void
      */
-    public function getExportPath()
+    public function getFilesystem()
     {
         if (!isset($this->config['path'])) {
             return;
@@ -102,6 +103,15 @@ class ResizeFactory
         }
 
         return $image2x;
+    }
+
+    public function getPathPrefix()
+    {
+        if (isset($this->config['path'])) {
+            $pathPrefix = $this->config['path'];
+        }
+
+        return $pathPrefix;
     }
 
     /**
