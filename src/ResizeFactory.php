@@ -2,6 +2,7 @@
 
 namespace Jeremytubbs\Resizer;
 
+use InvalidArgumentException;
 use Intervention\Image\ImageManager;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
@@ -44,7 +45,7 @@ class ResizeFactory
     public function getFilesystem()
     {
         if (!isset($this->config['path'])) {
-            return;
+            throw new InvalidArgumentException('A "source" file system must be set.');
         }
 
         if (is_string($this->config['path'])) {
@@ -52,6 +53,8 @@ class ResizeFactory
                 new Local($this->config['path'])
             );
         }
+
+        return $this->config['source'];
     }
 
     /**
