@@ -30,12 +30,15 @@ Example response -
 ```javascript
 {
   status: "ok",
+  output: {
     data: {
       thumb: "keep-it-simple-stupid_thumb.png",
       preview: "keep-it-simple-stupid_preview.png",
       thumb_2x: "keep-it-simple-stupid_thumb_2x.png",
       preview_2x: "keep-it-simple-stupid_preview_2x.png"
     },
+    source: "source/file/path"
+  },
   message: "Everything is okay!"
 }
 ```
